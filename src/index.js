@@ -3,7 +3,7 @@ import TelegramBot  from 'node-telegram-bot-api'
 
 const token = process.env.TELEGRAM_BOT_TOEKN;
 
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token, { polling: true }); 
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
