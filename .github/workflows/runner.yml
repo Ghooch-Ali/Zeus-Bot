@@ -27,7 +27,7 @@ jobs:
               "https://api.github.com/repos/${{ github.repository }}/actions/runs/$LAST_RUNNER_ID/cancel"
 
               echo ${{ github.run_id }} > LAST_RUNNER_ID.txt
-           fi
+           fi 
       - name: Commit and push changes
         run: |
           git config --global user.email "ghooch-ali@noreply.com"
