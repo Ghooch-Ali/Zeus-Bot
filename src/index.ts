@@ -3,7 +3,7 @@ console.log(`Hello Node.js v${process.versions.node}!`);
 
 const token = process.env.TELEGRAM_BOT_TOEKN as string
 
-
+ 
 // Create an instance of the `Bot` class and pass your bot token to it.
 const bot = new Bot(token); // <-- put your bot token between the ""
 
