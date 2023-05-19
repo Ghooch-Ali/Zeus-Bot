@@ -30,6 +30,8 @@ jobs:
            fi
       - name: Commit and push changes
         run: |
+          git config --global user.email "ghooch-ali@noreply.com"
+          git config --global user.name "ghooch-ali"
           git add .
           git commit -m "last workflow id"
           git push
