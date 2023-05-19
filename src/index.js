@@ -16,7 +16,7 @@ bot.onText(/\/start/, (msg) => {
 
   // Create the inline keyboard markup
   const keyboard = {
-    inline_keyboard: [[button]],
+    inline_keyboard: [[button],[button]],
   };
 
   // Send the message with the button
