@@ -58,7 +58,7 @@ jobs:
           node-version: 18
 
       - name: Install deps
-        run: npm i
+        run: npm i ts-node
 
       - name: Run script
         run: ts-node-esm src/index.ts
