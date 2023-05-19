@@ -2,6 +2,7 @@
   "name": "zeus-bot",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {},
   "dependencies": {
     "grammy": "^1.16.0"
