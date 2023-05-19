@@ -1,4 +1,5 @@
 import { Bot } from "grammy";
+import type { } from "@grammyjs/types"
 console.log(`Hello Node.js v${process.versions.node}!`);
 
 const token = process.env.TELEGRAM_BOT_TOEKN as string
@@ -7,26 +8,20 @@ const token = process.env.TELEGRAM_BOT_TOEKN as string
 // Create an instance of the `Bot` class and pass your bot token to it.
 const bot = new Bot(token); // <-- put your bot token between the ""
 
-
-
-await bot.api.setMyCommands([
-  { command: "start", description: "Start the bot" },
-  { command: "help", description: "Show help text" },
-  { command: "settings", description: "Open settings" },
-]);
-bot.command('help', (ctx) => {
-  ctx.reply(`
-  The bot could greet people in different languages.
-  The list of supported greetings:
-  - hello - English
-  - salut - French
-  - hola - Spanish
-  `)
+bot.command('start', (ctx) => {
+  ctx.reply('Choose an option:', {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: 'Button 1', callback_data: 'button1' },
+          { text: 'Button 2', callback_data: 'button2' },
+        ],
+        [
+          { text: 'Button 3', callback_data: 'button3' },
+          { text: 'Button 4', callback_data: 'button4' },
+        ],
+      ],
+    },
+  });
 });
-bot.hears('salut', (ctx) => ctx.reply('salut'));
-bot.hears('hello', (ctx) => ctx.reply('hello'));
-bot.hears('hola', (ctx) => ctx.reply('hola'));
-
-bot.on('message:text', (ctx) => ctx.reply(`Greeting "${ctx.update.message.text}" is not supported.`))
-
 bot.start();
