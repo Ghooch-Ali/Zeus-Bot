@@ -19,18 +19,36 @@ jobs:
         env:
           CANCEL_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-                  if [ -n "$CANCEL_TOKEN" ]; then
-                     PREVIOUS_RUN_ID=$(curl -s -X GET \
-                    -H "Accept: application/vnd.github.v3+json" \
-                    -H "Authorization: Bearer $CANCEL_TOKEN" \
-                    "https://api.github.com/repos/${{ github.repository }}/actions/runs?event=push&status=completed&per_page=2" \
-                    | jq -r '.workflow_runs[1].id')
-                   echo "Previous run ID: $PREVIOUS_RUN_ID"
-                   curl -X POST \
-                  -H "Accept: application/vnd.github.v3+json" \
-                  -H "Authorization: Bearer $CANCEL_TOKEN" \
-                  "https://api.github.com/repos/${{ github.repository }}/actions/runs/$PREVIOUS_RUN_ID/cancel"
-                   fi
+          LAST_RUNNER_ID=$(cat ./LAST_RUNNER_ID.txt)
+           if [ -n "$CANCEL_TOKEN" ]; then
+              curl -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer $CANCEL_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/$LAST_RUNNER_ID/cancel"
+
+              echo ${{ github.run_id }} > LAST_RUNNER_ID.txt
+           fi
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "last workflow id"
+          git push
+      # - name: Cancel previous workflow run
+      #   env:
+      #     CANCEL_TOKEN: ${{ secrets.GH_PAT }}
+      #   run: |
+      #             if [ -n "$CANCEL_TOKEN" ]; then
+      #                PREVIOUS_RUN_ID=$(curl -s -X GET \
+      #               -H "Accept: application/vnd.github.v3+json" \
+      #               -H "Authorization: Bearer $CANCEL_TOKEN" \
+      #               "https://api.github.com/repos/${{ github.repository }}/actions/runs?event=push&status=completed&per_page=2" \
+      #               | jq -r '.workflow_runs[1].id')
+      #              echo "Previous run ID: $PREVIOUS_RUN_ID"
+      #              curl -X POST \
+      #             -H "Accept: application/vnd.github.v3+json" \
+      #             -H "Authorization: Bearer $CANCEL_TOKEN" \
+      #             "https://api.github.com/repos/${{ github.repository }}/actions/runs/$PREVIOUS_RUN_ID/cancel"
+      #              fi
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
