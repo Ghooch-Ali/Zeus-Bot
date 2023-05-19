@@ -24,4 +24,10 @@ bot.command('start', (ctx) => {
     },
   });
 });
+
+bot.onCallbackQuery((ctx) => {
+  const buttonData = ctx.callbackQuery.data;
+  ctx.reply(`You clicked: ${buttonData}`);
+});
+
 bot.start();
