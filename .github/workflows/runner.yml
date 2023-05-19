@@ -34,6 +34,7 @@ jobs:
           git config --global user.name "ghooch-ali"
           git add .
           git commit -m "last workflow id"
+          git pull
           git push
       # - name: Cancel previous workflow run
       #   env:
