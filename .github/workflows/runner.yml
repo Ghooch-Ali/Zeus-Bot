@@ -60,6 +60,6 @@ jobs:
         run: npm i
 
       - name: Run script
-        run: node src/index.ts
+        run: ts-node-esm src/index.ts
         env:
           TELEGRAM_BOT_TOEKN: ${{ secrets.TELEGRAM_BOT_TOEKN }}

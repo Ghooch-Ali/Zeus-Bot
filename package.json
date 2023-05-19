@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0"
+    "grammy": "^1.16.0"
   },
   "devDependencies": {
     "typescript": "^5.0.4"
