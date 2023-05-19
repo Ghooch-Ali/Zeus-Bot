@@ -3,10 +3,17 @@ console.log(`Hello Node.js v${process.versions.node}!`);
 
 const token = process.env.TELEGRAM_BOT_TOEKN as string
 
- 
+
 // Create an instance of the `Bot` class and pass your bot token to it.
 const bot = new Bot(token); // <-- put your bot token between the ""
 
+
+
+await bot.api.setMyCommands([
+  { command: "start", description: "Start the bot" },
+  { command: "help", description: "Show help text" },
+  { command: "settings", description: "Open settings" },
+]);
 bot.command('help', (ctx) => {
   ctx.reply(`
   The bot could greet people in different languages.
@@ -16,7 +23,6 @@ bot.command('help', (ctx) => {
   - hola - Spanish
   `)
 });
-
 bot.hears('salut', (ctx) => ctx.reply('salut'));
 bot.hears('hello', (ctx) => ctx.reply('hello'));
 bot.hears('hola', (ctx) => ctx.reply('hola'));
